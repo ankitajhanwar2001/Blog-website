@@ -42,7 +42,7 @@ router.get("/new", middlewareObj.isLoggedIn, function (req, res) {
     res.render("blog/new");
 })
 
-router.get("/:id", function (req, res) {
+router.get("/:id", middlewareObj.isLoggedIn, function (req, res) {
     Blog.findById(req.params.id).populate("comments").exec(function(err, foundBlog) {
         if(err) {
             console.log(err);
