@@ -1,0 +1,74 @@
+<%- include("../partials/header") %>
+<div class="ui container" id="show_page">
+    <div class="ui container segment">
+        <h1 class="ui top attached header" >
+            <%= Blog.name %>
+        </h1>
+        <img class="ui centered bordered rounded image" src="<%= Blog.image %>" style="width:350px; height: 300px;">
+        <p><em>Submitted by <%= Blog.author.username %></em><br>
+          <em><%= Blog.created.toDateString() %></em></p>
+        <div class="ui attached segment">
+            <p><%= Blog.description %></p>
+        </div>
+
+        <div style="padding-left: 50%;">
+            <% if(currentUser && Blog.author.id.equals(currentUser.id)) { %>
+                <span><a class="btn btn-warning btn-xs" href="/blogs/<%= Blog._id %>/edit">Edit</a></span>
+                <form action="/blogs/<%= Blog._id %>?_method=DELETE" method="POST" style="display: inline;">
+                    <button class="btn btn-warning btn-xs">Delete</button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+    <br>
+    <div style="background-color: #ecf5ff; text-align: -webkit-center; width: 50%;" class="container">
+        <div style="padding: 0.5em;">
+            <h4>Add a comment</h4>
+        <form action="/blogs/<%= Blog._id %>/comments" method="POST">
+          <div class="input-group" style="align-items: center;">
+              <input type="text" name="comment[text]" class="form-control input-sm chat-input" placeholder="Write your message here..." />
+      	    <span style="padding-left: 0.5em;" class="input-group-btn" onclick="addComment()">
+                  <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-comment"></span> Add Comment</button>
+              </span>
+          </div>
+        </form>
+        <hr>
+        <ul style="text-align: left;" class="list-unstyled">
+          <% Blog.comments.forEach(function(comment) { %>
+            <strong><%= comment.author.username %></strong>
+            <small class="pull-right text-muted">
+               <span class="glyphicon glyphicon-time"></span><%= ((((comment.created.toDateString()).substring(0,10)).reverse()).substring(0,6)).reverse() %> at <%= comment.created.toTimeString().substring(0,5) %></small>
+            <br>
+            <li class="ui-state-default"><%= comment.text %></li>
+            <br>
+          <% }) %>
+        </ul>
+        </div>
+    </div>
+<!--
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="btn btn-primary" href="/blogs/<%= Blog._id %>/comments/new">Add new Comments</a>
+                </div>
+                <div class="panel-body">
+                    <% Blog.comments.forEach(function(comment) { %>
+                        <p>
+                            <strong><%= comment.author.username %></strong>
+                            <div><%= comment.text %></div>
+                            <% if(currentUser && comment.author.id.equals(currentUser.id)) { %>
+                                <a class="btn btn-warning btn-xs" href="/blogs/<%= Blog._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                                <form action="/blogs/<%= Blog._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-warning btn-xs">Delete</button>
+                                </form>
+                            <% } %>
+                        </p>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<%- include("../partials/footer") %>

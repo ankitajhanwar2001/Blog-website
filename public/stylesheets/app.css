@@ -1,0 +1,20 @@
+i.icon {
+    font-size: 2em;
+}
+#newpost {
+    text-align: center;
+    padding-top: 2em;
+    padding-bottom: 1em;
+}
+#show_page {
+    padding-top: 7em;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+img {
+     width: 300px; 
+     height: 300px;
+}
+#chevron_icon {
+    font-size: 1em;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+        <link rel="stylesheet" href="/stylesheets/app.css">
+    </head>
+    <body>
+        <div class="ui fixed inverted menu" style="padding: 0.5em;">
+            <div class="ui container">
+                <div class="header item"><i class="code icon"></i>Blog Site</div>
+                <a href="/" class="item">Home</a>
+                <% if(currentUser) { %>
+                  <a href="/blogs/new" class="item">New Post</a>
+                <% } %>
+            </div>
+            <div class="ui container">
+                <!-- <div class="header item"><i class="code icon"></i>Blog Site</div> -->
+                <!-- <a href="/login" class="item">Login</a>
+                <a href="/register" class="item">Sign In</a> -->
+
+                <% if(!currentUser) { %>
+                  <a href="/login" class="item">Login</a>
+                  <a href="/register" class="item">Sign Up</a>
+                <% } else { %>
+                  <a href="#" class="item">Logged in as <%= currentUser.username %></a>
+                  <a href="/logout" class="item">Logout</a>
+                <% } %>
+
+            </div>
+        </div>
+
+        <div class="container">
+            <% if(error && error.length>0) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <% if(success && success.length>0) { %>
+                <div class="alert alert-success" role="alert">
+                    <%= success %>
+                </div>
+            <% } %>
+        </div>
+
+<div class="ui main container"  style="padding-top: 7em; padding-left: 15%; padding-right: 15%;">
+    <div class="ui block huge header centered">
+        BLOG SITE
+    </div>
+    <div class="ui section" id="section">
+        <div class="ui divided items">
+            <% blg.forEach(function(blog) { %>
+                <div class="item">
+                    <div class="image">
+                        <img src="<%= blog.image %>">
+                    </div>
+                    <div class="content">
+                        <a class="header" href="/blogs/<%=blog._id%>"><%= blog.title %></a>
+                        <div class="meta">
+                            <span><%= blog.created.toDateString() %></span>
+                        </div>
+                        <div class="description">
+                            <p><%= blog.description.substring(0,100) %>...</p>
+                        </div>
+                        <div class="extra">
+                            <a href="/blogs/<%=blog._id%>" class="ui floated inverted secondary small button">Read more<i class="right chevron icon" id="chevron_icon"></i></a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>
