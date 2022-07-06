@@ -10,7 +10,7 @@ var express = require("express"),
     methodOverride = require("method-override"), // lets us use PUT/DELETE
     flash = require("connect-flash"),
     Blog = require("./modules/blog");
-
+const port = process.env.PORT || 8080;
 
 app.use(require("express-session")({
     secret: "HELLOOOO....",
@@ -48,6 +48,6 @@ app.use(indexRoutes);
 app.use("/blogs", blogRoutes);
 app.use("/blogs/:id/comments", commentRoutes);
 
-app.listen(8080, function() {
+app.listen(port, function() {
     console.log("Server has started!!");
 });
