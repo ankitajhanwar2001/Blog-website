@@ -37,7 +37,7 @@
           <% Blog.comments.forEach(function(comment) { %>
             <strong><%= comment.author.username %></strong>
             <small class="pull-right text-muted">
-               <span class="glyphicon glyphicon-time"></span><%= ((((comment.created.toDateString()).substring(0,10)).reverse()).substring(0,6)).reverse() %> at <%= comment.created.toTimeString().substring(0,5) %></small>
+               <span class="glyphicon glyphicon-time"></span><%= comment.created.toDateString().substring(0,10) %> at <%= comment.created.toTimeString().substring(0,5) %></small>
             <br>
             <li class="ui-state-default"><%= comment.text %></li>
             <br>
